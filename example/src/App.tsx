@@ -10,7 +10,7 @@ import {
 const result = multiply(3, 7);
 
 const generateAttestationChallenge = (): string => {
-  const challenge: string = '2A8Jc94cmW4d3jSQwvxJywwLENHBA+B6JYrG3vf141o=';
+  const challenge: string = 'lVVSRlBKB5TILoZZnJy/ZBhcX69waDpmrGr4RBXsXQc=';
   return challenge;
 };
 
@@ -19,15 +19,17 @@ export default function App() {
     try {
       if (Platform.OS === 'android') {
         const challenge = generateAttestationChallenge(); // assuming this function exists
-        const result = generateKeys(challenge);
+        console.log('challenge', challenge);
+        const result = await generateKeys(challenge);
         console.log('Key generation result1:', result);
         const newResult = await getAttestationCertificates();
         console.log('Key generation result:2', newResult);
       } else {
-        const x = await generateIOSKeys();
-        console.log('should log', x);
-        // console.log('Key generation result23456y:');
-        const attest = await getIOSAttest();
+        const challenge = generateAttestationChallenge();
+        console.log('challenge', challenge);
+        const keyId = await generateIOSKeys();
+        console.log('should log', keyId);
+        const attest = await getIOSAttest(challenge);
         console.log('Key generation result1:', attest);
       }
     } catch (error) {

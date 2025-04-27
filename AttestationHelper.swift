@@ -1,10 +1,3 @@
-//
-//  AttestationHelper.swift
-//  Ka
-//
-//  Created by Issac To on 19/04/2025.
-//
-
 import Foundation
 import DeviceCheck
 import CryptoKit
@@ -64,32 +57,19 @@ import CryptoKit
         }
     }
 
-    @objc public func attest(sessionID: String, completion: @escaping (NSString?) -> Void) {
+    @objc public func getIOSAttest(sessionID: String, completion: @escaping (NSString?) -> Void) {
         guard let currentKeyID = self.keyID else {
             print("[!] Key ID is not available. Ensure a key has been generated or retrieved.")
             completion(nil)
             return
         }
 
-//        guard let challenge = sessionID.data(using: .utf8) else {
-//            print("[!] Failed to convert sessionID to Data")
-//            completion(nil)
-//            return
-//        }
-
-        // let hash = Data(SHA256.hash(data: challenge))
 
         print("Calling Apple servers with keyID: \(currentKeyID)" as NSString)
         
-        let randomSessionID = NSUUID().uuidString
-        let challenge = randomSessionID.data(using: .utf8)!
+//        let randomSessionID = NSUUID().uuidString
+        let challenge = sessionID.data(using: .utf8)!
         let hash = Data(SHA256.hash(data: challenge))
-        print("randomSessionID")
-        print(randomSessionID)
-        print("challenge")
-        print(challenge)
-        print("hash")
-        print(hash)
 
         attestService.attestKey(currentKeyID as String, clientDataHash: hash) { attestation, error in
             guard error == nil else {
@@ -110,16 +90,7 @@ import CryptoKit
              let base64Attestation = attestationObject.base64EncodedString()
             print("📦 Base64 Attestation Object:")
             print(base64Attestation)
-              completion(base64Attestation as NSString)
-
-            // if let decodedData = Data(base64Encoded: attestationObject, options: .ignoreUnknownCharacters),
-            //    let decodedAttestation = String(data: decodedData, encoding: .utf8) {
-            //     print("✅ Decoded Attestation: \(decodedAttestation)")
-            //     completion(decodedAttestation as NSString)
-            // } else {
-            //     print("[!] Failed to decode attestation object with id \(currentKeyID)")
-            //     completion(nil)
-            // }
+            completion(base64Attestation as NSString)
         }
     }
     

@@ -21,7 +21,7 @@ public class AttestationHelper {
     // Generate hardware-backed key with attestation challenge
     public static PublicKey generateAttestationKey(String challengeString) throws Exception {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            byte[] challenge = getUrlDecoder().decode(challengeString);
+            byte[] challenge = Base64.decode(challengeString, Base64.DEFAULT);
 
             KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(
                     KeyProperties.KEY_ALGORITHM_RSA, "AndroidKeyStore");
@@ -35,7 +35,7 @@ public class AttestationHelper {
                         .setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1)
                         .setAttestationChallenge(challenge)
                         .setUserAuthenticationRequired(false)
-                        .setIsStrongBoxBacked(false); // Optional: enable if supported and needed
+                        .setIsStrongBoxBacked(true); // Optional: enable if supported and needed
 
                 keyPairGenerator.initialize(builder.build());
                 KeyPair keyPair = keyPairGenerator.generateKeyPair();

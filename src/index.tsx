@@ -21,9 +21,9 @@ export function generateIOSKeys(): Promise<string | null> {
   });
 }
 
-export function getIOSAttest(): Promise<string | null> {
+export function getIOSAttest(challenge: string): Promise<string | null> {
   return new Promise((resolve, reject) => {
-    Ka.getIOSAttest('1234')
+    Ka.getIOSAttest(challenge)
       .then((result) => {
         console.log('result', result);
         resolve(result); // Resolve the promise with the result

@@ -34,7 +34,7 @@ RCT_EXPORT_METHOD(getIOSAttest:(NSString *)inputString
 {
     NSLog(@"[DEBUG] Ka: getIOSAttest method was called with input: %@", inputString);
     AttestationHelper *helper = [[AttestationHelper alloc] init];
-    [helper attestWithSessionID:@"abc" completion:^(NSString *key) {
+    [helper getIOSAttestWithSessionID:inputString completion:^(NSString *key) {
         if (key) {
             NSLog(@"[DEBUG] Key received from Swift: %@", key);
             resolve(key);
