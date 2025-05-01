@@ -12,8 +12,6 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.List;
-import static java.util.Base64.getUrlDecoder;
-
 public class AttestationHelper {
 
     private static final String KEY_ALIAS = "attestation_rsa_key";
@@ -47,7 +45,7 @@ public class AttestationHelper {
     }
 
     // Get attestation certificate chain as Base64-encoded strings
-    public static List<String> getAttestationCertificates() throws Exception {
+    public static List<String> getAndroidAttest() throws Exception {
         KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
         keyStore.load(null);
         Certificate[] certChain = keyStore.getCertificateChain(KEY_ALIAS);
@@ -56,7 +54,6 @@ public class AttestationHelper {
         }
         List<String> base64Certs = new ArrayList<>();
         for (Certificate cert : certChain) {
-            System.out.println("cert " + cert);
             base64Certs.add(Base64.encodeToString(cert.getEncoded(), Base64.NO_WRAP));
         }
 

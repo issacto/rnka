@@ -1,54 +1,107 @@
-import { Text, View, StyleSheet, Button, Platform } from 'react-native';
+import { useState } from 'react';
 import {
-  multiply,
-  generateKeys,
-  getAttestationCertificates,
-  generateIOSKeys,
-  getIOSAttest,
-} from 'react-native-ka';
-
-const result = multiply(3, 7);
+  StyleSheet,
+  Button,
+  Text,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import { getAttest, generateSecureKeys } from 'react-native-ka';
+import Clipboard from '@react-native-clipboard/clipboard';
+import { TouchableOpacity } from 'react-native';
 
 const generateAttestationChallenge = (): string => {
-  const challenge: string = 'lVVSRlBKB5TILoZZnJy/ZBhcX69waDpmrGr4RBXsXQc=';
-  return challenge;
+  return 'lVVSRlBKB5TILoZZnJy/ZBhcX69waDpmrGr4RBXsXQc=';
 };
 
 export default function App() {
+  const [pubkey, setPubkey] = useState<string | null>(null);
+  const [attest, setAttest] = useState<string | null>(null);
+  const [challenge, setChallenge] = useState<string | null>(null);
+
   const generateKeyPair = async () => {
+    const challengeStr = generateAttestationChallenge();
+    setChallenge(challengeStr);
+
     try {
-      if (Platform.OS === 'android') {
-        const challenge = generateAttestationChallenge(); // assuming this function exists
-        console.log('challenge', challenge);
-        const result = await generateKeys(challenge);
-        console.log('Key generation result1:', result);
-        const newResult = await getAttestationCertificates();
-        console.log('Key generation result:2', newResult);
-      } else {
-        const challenge = generateAttestationChallenge();
-        console.log('challenge', challenge);
-        const keyId = await generateIOSKeys();
-        console.log('should log', keyId);
-        const attest = await getIOSAttest(challenge);
-        console.log('Key generation result1:', attest);
-      }
+      const generatedPubkey = await generateSecureKeys(challengeStr);
+      const generatedAttest = await getAttest(challengeStr);
+
+      setPubkey(generatedPubkey);
+      setAttest(
+        Array.isArray(generatedAttest)
+          ? generatedAttest.join('\n')
+          : generatedAttest
+      );
+
+      console.log('Challenge:', challengeStr);
+      console.log('Public Key:', generatedPubkey);
+      console.log('Attestation:', generatedAttest);
     } catch (error) {
-      console.error('Error generating keys:', error);
+      console.error('Error generating keys or attestation:', error);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text>Result: {result}</Text>
-      <Button title={'clieck ma '} onPress={generateKeyPair} />
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Button title="Generate Keys & Attestation" onPress={generateKeyPair} />
+        {challenge && (
+          <>
+            <Text style={styles.label}>Challenge:</Text>
+            <TouchableOpacity onPress={() => Clipboard.setString(challenge)}>
+              <Text style={styles.copyableText}>{challenge}</Text>
+            </TouchableOpacity>
+          </>
+        )}
+
+        {pubkey && (
+          <>
+            <Text style={styles.label}>Public Key:</Text>
+            <TouchableOpacity onPress={() => Clipboard.setString(pubkey)}>
+              <Text style={styles.copyableText}>{pubkey}</Text>
+            </TouchableOpacity>
+          </>
+        )}
+
+        {attest && (
+          <>
+            <Text style={styles.label}>Attestation:</Text>
+            <TouchableOpacity onPress={() => Clipboard.setString(attest)}>
+              <Text style={styles.copyableText}>{attest}</Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  safeArea: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#f7f7f7',
+  },
+  copyableText: {
+    marginTop: 5,
+    fontSize: 14,
+    color: '#0066cc',
+    textAlign: 'left',
+    textDecorationLine: 'underline',
+  },
+  scrollContainer: {
+    padding: 20,
+    alignItems: 'flex-start',
+  },
+  label: {
+    marginTop: 20,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  text: {
+    marginTop: 5,
+    fontSize: 14,
+    color: '#333',
+    textAlign: 'left',
   },
 });

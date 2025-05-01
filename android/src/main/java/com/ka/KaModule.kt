@@ -20,14 +20,8 @@ class KaModule(reactContext: ReactApplicationContext) :
     return NAME
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  override fun multiply(a: Double, b: Double): Double {
-    return a * b
-  }
-
   @RequiresApi(Build.VERSION_CODES.O)
-  override fun generateKeys(challengeString: String): String? {
+  override fun generateAndroidKeys(challengeString: String): String? {
     val publicKey: PublicKey? = try {
       AttestationHelper.generateAttestationKey(challengeString)
   } catch (e: Exception) {
@@ -39,8 +33,8 @@ class KaModule(reactContext: ReactApplicationContext) :
     }
   }
 
-  override fun getAttestationCertificates(): WritableArray {
-    val attestationCertificates = AttestationHelper.getAttestationCertificates()
+  override fun getAndroidAttest(): WritableArray {
+    val attestationCertificates = AttestationHelper.getAndroidAttest()
     val writableArray = Arguments.createArray()
 
     for (certificate in attestationCertificates) {
