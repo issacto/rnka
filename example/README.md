@@ -1,5 +1,7 @@
 # React Native Android & iOS Key Attestation Demo App
 
+[▶️ Watch Demo Video](assets/keyattest.mp4)
+
 This app demonstrates a modern authentication flow using device key attestation, built with [**React Native**](https://reactnative.dev).
 
 ## What This App Can Do
