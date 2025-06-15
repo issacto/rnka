@@ -1,97 +1,118 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native Android & iOS Key Attestation Demo App
 
-# Getting Started
+This app demonstrates a modern authentication flow using device key attestation, built with [**React Native**](https://reactnative.dev).
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## What This App Can Do
 
-## Step 1: Start Metro
+- **Signup & Login:**  
+  Users can create an account and log in with username and password.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- **Dynamic and Static Content:**  
+  Explore static and dynamic content pages.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- **Android & iOS Key Attestation:**  
+  After login, the app generates a secure key pair and attestation certificate using the device's secure hardware (only works on real devices, not simulators/emulators).
+
+- **Attestation Verification:**  
+  The attestation certificate is sent to a backend server for verification, ensuring the request is from a genuine device.
+
+- **Secure Flow:**  
+  The backend only trusts requests from devices whose keys are stored in secure storage.
+
+- **Modern UI:**  
+  All screens use a clean, card-based layout for a better user experience.
+
+## How it Works
+
+1. **Signup:**  
+   - Enter a username and password to create an account.
+
+2. **Login:**  
+   - Enter your credentials to log in.
+   - On success, the backend returns an access token and a challenge.
+
+3. **Key Attestation:**  
+   - The app generates a key pair and attestation certificate using the challenge.
+   - The certificate is sent to the backend for verification (`/android_attestation/verify` on Android, `/ios_attestation/verify` on iOS).
+
+4. **Attestation Success:**  
+   - If verification succeeds, you see a confirmation that you are logged in and the backend trusts your device.
+
+## Requirements
+
+- Node.js, npm/yarn
+- React Native CLI
+- Android Studio or Xcode (for emulators/simulators)
+- A backend server that implements the `/auth/signup`, `/login`, `/android_attestation/verify`, and `/ios_attestation/verify` endpoints
+
+> **Note:** Key attestation only works on real Android and iOS devices, not on emulators/simulators.
+
+## Getting Started
+
+### 1. Install dependencies
 
 ```sh
-# Using npm
-npm start
+npm install
+# or
+yarn install
+```
 
-# OR using Yarn
+### 2. Start Metro
+
+```sh
+npm start
+# or
 yarn start
 ```
 
-## Step 2: Build and run your app
+### 3. Run the app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
+#### Android
 
 ```sh
-# Using npm
 npm run android
-
-# OR using Yarn
+# or
 yarn android
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+#### iOS
 
 ```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
 npm run ios
-
-# OR using Yarn
+# or
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### 4. Configure Backend URL
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+Edit `src/constants.ts` and set your backend URL:
 
-## Step 3: Modify your app
+```ts
+export const BACKEND_URL = "http://YOUR_BACKEND_IP:PORT";
+```
 
-Now that you have successfully run the app, let's make changes!
+## Screens
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+- **Menu:** Entry point, choose static or dynamic content.
+- **Static Content:** Demo of key generation and attestation.
+- **Dynamic Content:** Signup and login flow.
+- **Signup:** Create a new account.
+- **Login:** Authenticate and receive attestation challenge.
+- **Token:** View access token and challenge, generate and send attestation (Android/iOS).
+- **Attestation Success:** Confirmation of secure login.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+## Troubleshooting
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- If you see network errors, make sure your backend is running and accessible from your device/emulator.
+- For Android emulators, use `10.0.2.2` as the backend IP.
+- Key attestation will not work on emulators or simulators.
 
-## Congratulations! :tada:
+## Learn More
 
-You've successfully run and modified your React Native App. :partying_face:
+- [React Native Docs](https://reactnative.dev/docs/getting-started)
+- [Android Key Attestation](https://developer.android.com/training/articles/security-key-attestation)
+- [Apple DeviceCheck & Attestation](https://developer.apple.com/documentation/devicecheck/validating_apps_that_connect_to_your_server)
 
-### Now what?
+---
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+**Enjoy using secure authentication with Android & iOS Key Attestation!**

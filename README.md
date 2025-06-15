@@ -24,9 +24,9 @@ A React Native library that provides secure key generation and hardware-backed k
 ## Installation
 
 ```bash
-npm install react-native-key-attestation
+npm install rn-key-attestation
 # or
-yarn add react-native-key-attestation
+yarn add rn-key-attestation
 ```
 
 ## API
