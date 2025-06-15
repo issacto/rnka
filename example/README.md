@@ -24,18 +24,21 @@ This app demonstrates a modern authentication flow using device key attestation,
 
 ## How it Works
 
-1. **Signup:**  
+1. **Signup:**
+
    - Enter a username and password to create an account.
 
-2. **Login:**  
+2. **Login:**
+
    - Enter your credentials to log in.
    - On success, the backend returns an access token and a challenge.
 
-3. **Key Attestation:**  
+3. **Key Attestation:**
+
    - The app generates a key pair and attestation certificate using the challenge.
    - The certificate is sent to the backend for verification (`/android_attestation/verify` on Android, `/ios_attestation/verify` on iOS).
 
-4. **Attestation Success:**  
+4. **Attestation Success:**
    - If verification succeeds, you see a confirmation that you are logged in and the backend trusts your device.
 
 ## Requirements
@@ -88,7 +91,7 @@ yarn ios
 Edit `src/constants.ts` and set your backend URL:
 
 ```ts
-export const BACKEND_URL = "http://YOUR_BACKEND_IP:PORT";
+export const BACKEND_URL = 'http://YOUR_BACKEND_IP:PORT';
 ```
 
 ## Screens

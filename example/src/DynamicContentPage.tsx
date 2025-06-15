@@ -7,10 +7,18 @@ export default function DynamicContentPage({ navigation }) {
       <View style={styles.card}>
         <Text style={styles.title}>Dynamic Content</Text>
         <View style={styles.buttonWrapper}>
-          <Button title="Signup" onPress={() => navigation.navigate('Signup')} color="#007AFF" />
+          <Button
+            title="Signup"
+            onPress={() => navigation.navigate('Signup')}
+            color="#007AFF"
+          />
         </View>
         <View style={styles.buttonWrapper}>
-          <Button title="Login" onPress={() => navigation.navigate('Login')} color="#34C759" />
+          <Button
+            title="Login"
+            onPress={() => navigation.navigate('Login')}
+            color="#34C759"
+          />
         </View>
       </View>
     </SafeAreaView>

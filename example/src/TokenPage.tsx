@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, Alert, SafeAreaView, ScrollView, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  Alert,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import { generateSecureKeys, getAttest } from 'react-native-ka';
 import { BACKEND_URL } from './constants';
 
 export default function TokenPage({ route, navigation }) {
   const { accessToken, challenge } = route.params;
-  const [attestationCreated, setAttestationCreated] = useState<string | null>(null);
+  const [attestationCreated, setAttestationCreated] = useState<string | null>(
+    null
+  );
   const [attestation, setAttestation] = useState<any>(null);
 
   const endpoint =
@@ -18,13 +29,13 @@ export default function TokenPage({ route, navigation }) {
       Alert.alert('Please generate attestation first.');
       return;
     }
-    
+
     try {
       const url = endpoint;
       const options = {
         method: 'POST',
         headers: {
-          authorization: `Bearer ${accessToken}`,
+          'authorization': `Bearer ${accessToken}`,
           'content-type': 'application/json',
         },
         body: JSON.stringify({ attestationCertificate: attestation }),
@@ -47,7 +58,9 @@ export default function TokenPage({ route, navigation }) {
       const generatedPubkey = await generateSecureKeys(challenge);
       if (generatedPubkey) {
         const generatedAttest = await getAttest(generatedPubkey);
-        setAttestation(Array.isArray(generatedAttest) ? generatedAttest : [generatedAttest]);
+        setAttestation(
+          Array.isArray(generatedAttest) ? generatedAttest : [generatedAttest]
+        );
         setAttestationCreated('yes');
         return;
       }
@@ -72,10 +85,18 @@ export default function TokenPage({ route, navigation }) {
           <Text style={styles.value}>{challenge}</Text>
           <View style={styles.buttonGroup}>
             <View style={styles.buttonWrapper}>
-              <Button title="Generate Attestation" onPress={handleGenerateAttestation} color="#007AFF" />
+              <Button
+                title="Generate Attestation"
+                onPress={handleGenerateAttestation}
+                color="#007AFF"
+              />
             </View>
             <View style={styles.buttonWrapper}>
-              <Button title="Send Attestation" onPress={handleSendAttestation} color="#34C759" />
+              <Button
+                title="Send Attestation"
+                onPress={handleSendAttestation}
+                color="#34C759"
+              />
             </View>
           </View>
           {attestationCreated && (

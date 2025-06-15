@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Button, Text, ScrollView, SafeAreaView, View, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  Button,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  View,
+  TouchableOpacity,
+} from 'react-native';
 import { getAttest, generateSecureKeys } from 'react-native-ka';
 import Clipboard from '@react-native-clipboard/clipboard';
 
@@ -37,7 +45,11 @@ export default function StaticContentPage({ navigation }) {
         <View style={styles.card}>
           <Text style={styles.title}>Static Content</Text>
           <View style={styles.buttonWrapper}>
-            <Button title="Generate Keys & Attestation" onPress={generateKeyPair} color="#007AFF" />
+            <Button
+              title="Generate Keys & Attestation"
+              onPress={generateKeyPair}
+              color="#007AFF"
+            />
           </View>
           {challenge && (
             <>
@@ -71,7 +83,12 @@ export default function StaticContentPage({ navigation }) {
 
 const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#f2f2f7' },
-  scrollContainer: { flexGrow: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
   card: {
     backgroundColor: '#fff',
     borderRadius: 16,
@@ -83,8 +100,20 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
   },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 18, textAlign: 'center', color: '#222' },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 18,
+    textAlign: 'center',
+    color: '#222',
+  },
   label: { fontWeight: 'bold', marginTop: 20, color: '#444' },
-  copyableText: { marginTop: 5, fontSize: 14, color: '#0066cc', textAlign: 'left', textDecorationLine: 'underline' },
+  copyableText: {
+    marginTop: 5,
+    fontSize: 14,
+    color: '#0066cc',
+    textAlign: 'left',
+    textDecorationLine: 'underline',
+  },
   buttonWrapper: { marginVertical: 8 },
 });

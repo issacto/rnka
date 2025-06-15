@@ -1,4 +1,4 @@
- # React Native Key Attestation
+# React Native Key Attestation
 
 [![npm version](https://badge.fury.io/js/react-native-key-attestation.svg)](https://www.npmjs.com/package/react-native-key-attestation)
 ![Platform Android and iOS](https://img.shields.io/badge/platform-Android%20%7C%20iOS-blue)
@@ -35,18 +35,18 @@ yarn add rn-key-attestation
 
 Generates secure keys on the device.
 
-  - **`challenge?` (string):** A unique string from the server, required for Android. Optional for iOS.
-  - **Returns:** A Promise resolving to a base64-encoded key string on success, or `null` on failure.
+- **`challenge?` (string):** A unique string from the server, required for Android. Optional for iOS.
+- **Returns:** A Promise resolving to a base64-encoded key string on success, or `null` on failure.
 
 ### `getAttest(challenge: string): Promise<string | string[] | null>`
 
 Retrieves attestation results from the device.
 
-  - **`challenge` (string):** A unique string from the server, required for iOS. Used internally on Android.
-  - **Returns:** A Promise resolving to:
-      - A string containing the attestation result on iOS.
-      - An array of strings with attestation data on Android.
-      - `null` on failure.
+- **`challenge` (string):** A unique string from the server, required for iOS. Used internally on Android.
+- **Returns:** A Promise resolving to:
+  - A string containing the attestation result on iOS.
+  - An array of strings with attestation data on Android.
+  - `null` on failure.
 
 ## License
 

@@ -7,10 +7,18 @@ export default function MenuPage({ navigation }) {
       <View style={styles.card}>
         <Text style={styles.title}>Welcome</Text>
         <View style={styles.buttonWrapper}>
-          <Button title="Static Content" onPress={() => navigation.navigate('StaticContent')} color="#007AFF" />
+          <Button
+            title="Static Content"
+            onPress={() => navigation.navigate('StaticContent')}
+            color="#007AFF"
+          />
         </View>
         <View style={styles.buttonWrapper}>
-          <Button title="Dynamic Content" onPress={() => navigation.navigate('DynamicContent')} color="#34C759" />
+          <Button
+            title="Dynamic Content"
+            onPress={() => navigation.navigate('DynamicContent')}
+            color="#34C759"
+          />
         </View>
       </View>
     </SafeAreaView>

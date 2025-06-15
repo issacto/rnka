@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, SafeAreaView } from 'react-native';
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { z } from 'zod';
 import { BACKEND_URL } from './constants';
 
@@ -62,7 +69,11 @@ export default function SignupPage({ navigation }) {
           <Button title="Enter" onPress={handleSignup} color="#007AFF" />
         </View>
         <View style={styles.buttonWrapper}>
-          <Button title="Back" onPress={() => navigation.goBack()} color="#8e8e93" />
+          <Button
+            title="Back"
+            onPress={() => navigation.goBack()}
+            color="#8e8e93"
+          />
         </View>
       </View>
     </SafeAreaView>

@@ -6,9 +6,14 @@ export default function AttestSuccessPage({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.card}>
         <Text style={styles.text}>
-          You are now logged in and the backend is confident that this request is sent from a device whose key is stored in secure storage.
+          You are now logged in and the backend is confident that this request
+          is sent from a device whose key is stored in secure storage.
         </Text>
-        <Button title="Back to Menu" onPress={() => navigation.navigate('Menu')} color="#007AFF" />
+        <Button
+          title="Back to Menu"
+          onPress={() => navigation.navigate('Menu')}
+          color="#007AFF"
+        />
       </View>
     </SafeAreaView>
   );
