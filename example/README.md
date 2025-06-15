@@ -1,12 +1,10 @@
 # React Native Android & iOS Key Attestation Demo App
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/issacto/rnka/blob/main/example/assets/keyattest.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 
-This app demonstrates a modern authentication flow using device key attestation, built with [**React Native**](https://reactnative.dev).
+
+https://github.com/user-attachments/assets/5b0288a5-c734-4031-942e-a9d052889307
+
 
 ## What This App Can Do
 
